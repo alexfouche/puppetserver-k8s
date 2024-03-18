@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+set -x
+
+# Read in the file of environment settings
+# done anyway in /opt/puppetlabs/server/apps/puppetserver/bin/puppetserver
+source /etc/sysconfig/puppetserver
+
+mkdir -p /etc/puppetlabs/puppet/eyaml
+
+cp /etc/puppetlabs/puppet/_eyaml/private_key-af.pkcs7.pem /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
+cp /etc/puppetlabs/puppet/_eyaml/public_key-af.pkcs7.pem /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
+
+chown -R puppet:root /etc/puppetlabs/puppet/eyaml
+chmod 0700 /etc/puppetlabs/puppet/eyaml
+chmod 0600 /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
+chmod 0644 /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
+
+# Then run the CMD
+exec "$@"

@@ -1,0 +1,29 @@
+# Hiera config v5 - eyaml only
+version: 5
+
+# defaults:  # Used for any hierarchy level that omits these keys.
+#   datadir: /etc/puppetlabs/code/environments/%{::environment}/hieradata
+#   data_hash: yaml_data  # Use the built-in YAML backend.
+
+defaults:
+  datadir: /etc/puppetlabs/code/environments/%{::environment}/hieradata
+  lookup_key: eyaml_lookup_key
+  options:
+    pkcs7_private_key: /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
+    pkcs7_public_key: /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
+
+hierarchy:
+  - name: "All hierarchies"
+    paths:
+      - "9_nodes/%{trusted.certname}.yaml"  # Add file extension
+      - "8_org_env_role/%{::org}/%{::env}/%{role}.yaml"
+      - "7_org_env/%{::org}/%{::env}.yaml"
+      - "6_env_role/%{::env}/%{role}.yaml"
+      - "5_org_role/%{::org}/%{role}.yaml"
+      - "4_env/%{::env}.yaml"
+      # - "env/%{::environment}.yaml"
+      # - "domains/%{::trusted.domain}.yaml"
+      - "3_org/%{org}.yaml"
+      - "2_platform/%{platform}.yaml"
+      - "1_role/%{::role}.yaml"
+      - "0_common.yaml"
