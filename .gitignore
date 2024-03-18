@@ -1,0 +1,9 @@
+# https://git-scm.com/docs/gitignore
+
+/.make.*
+/WIP*
+/obsolete/
+/image/obsolete/
+/*.code-workspace
+*-202[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9]CET
+*-202[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9]CET-*
